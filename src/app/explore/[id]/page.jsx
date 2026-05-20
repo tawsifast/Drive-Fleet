@@ -6,10 +6,19 @@ import { MdOutlineAirlineSeatReclineExtra, MdSettings } from "react-icons/md";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import Link from "next/link";
 import { BookNowModal } from "@/components/BookNowModal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const CarDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:5000/explore/${id}`);
+  const {token} = await auth.api.getToken({
+    headers: await headers()
+  })
+  console.log(token);
+  const res = await fetch(`http://localhost:5000/explore/${id}`,{
+    headers:{
+      authorization: `Bearer ${token}`
+    }})
   const car = await res.json();
   const {brand,model,speed,rating,category,seats,image,transmission,fuel,description,pricePerDay,available,location,features} = car;
 

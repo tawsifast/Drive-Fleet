@@ -16,7 +16,7 @@ const AddCarPage = () => {
     const formData = new FormData(e.target);
     const cars = Object.fromEntries(formData.entries());
     console.log(cars, "cars");
-    const {_id, brand, model, speed, rating, category, seats, image, transmission, fuel, description, pricePerDay, available} = cars;
+    const {_id, brand, model, speed, rating, category, seats, image, transmission, fuel, description, location, pricePerDay, available} = cars;
     const personalCarAddingData = {
       userId: user.id,
       userImage: user.image,

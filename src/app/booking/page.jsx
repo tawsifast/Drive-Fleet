@@ -8,8 +8,16 @@ const BookingCarPage = async () => {
     headers: await headers(),
   });
 
+  const {token} = await auth.api.getToken({
+      headers: await headers()
+    })
+
   const user = session?.user;
-  const res = await fetch(`http://localhost:5000/carBooking/${user?.id}`);
+  const res = await fetch(`http://localhost:5000/carBooking/${user?.id}`,{
+     headers:{
+      authorization: `Bearer ${token}`
+    }
+  });
   const bookings = await res.json();
   console.log(bookings, "data");
 
@@ -61,7 +69,7 @@ const BookingCarPage = async () => {
               No <span className="text-yellow-400 italic">Bookings</span> Yet
             </h2>
             <p className="text-zinc-400 text-sm mb-8 max-w-sm">
-              You haven't booked any cars yet. Explore our fleet and find your perfect ride.
+              You haven`t booked any cars yet. Explore our fleet and find your perfect ride.
             </p>
             <Link
               href="/explore"

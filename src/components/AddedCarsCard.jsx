@@ -18,6 +18,7 @@ const AddedCarsCard = ({ car }) => {
         </div>
         <div>
         <h2 className="font-bold text-xl">{`${car.brand} ${car.model}`}</h2>
+        <p>${car.pricePerDay}</p>
         <DeleteAlert car={car}/>
         <EditModal car={car}/>
         </div>

@@ -1,138 +1,179 @@
 "use client";
-import { Envelope } from "@gravity-ui/icons";
-import {Button,Select,Input,Label,Modal,Surface,TextField,FieldError,ListBox,TextArea} from "@heroui/react";
-import { BiUser } from "react-icons/bi";
+import {
+  Button,
+  Select,
+  Input,
+  Label,
+  Modal,
+  Surface,
+  TextField,
+  FieldError,
+  ListBox,
+  TextArea,
+} from "@heroui/react";
 import { RiEdit2Fill } from "react-icons/ri";
 
-const EditModal = ({car}) => {
-    return (
-        <div>
-        <Modal>
-        {/* <Button variant="secondary">Open Contact Form</Button> */}
-         <Button variant="outline" className={"rounded-none border border-black"}><RiEdit2Fill />Edit</Button>
-        <Modal.Backdrop>
+const EditModal = ({ car }) => {
+
+  const {_id} = car;
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const cars = Object.fromEntries(formData.entries());
+    console.log(cars, "carsData");
+    const res = await fetch(`http://localhost:5000/listing/${_id}`,{
+      method: 'PATCH',
+      headers:{
+           "content-type": "application/json" 
+          },
+        body: JSON.stringify(cars),
+    })
+    const data = await res.json();
+    console.log(data, "data");
+}
+  return (
+    <div>
+      <Modal>
+        <Button className="flex items-center gap-1 px-4 py-2 bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-bold text-xs uppercase tracking-widest rounded-lg transition-colors">
+          <RiEdit2Fill /> Edit
+        </Button>
+
+        <Modal.Backdrop className="bg-zinc-950/80 backdrop-blur-sm">
           <Modal.Container placement="auto">
-            <Modal.Dialog className="sm:max-w-2xl">
-              <Modal.CloseTrigger />
-              <Modal.Header>
-                {/* <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                  <BiUser className="size-5" />
-                </Modal.Icon> */}
-                <Modal.Heading className="text-center">Edit Destination</Modal.Heading>
-               
+            <Modal.Dialog className="sm:max-w-2xl bg-zinc-900 border border-zinc-800 rounded-2xl">
+              <Modal.CloseTrigger className="text-zinc-400 hover:text-white" />
+
+              <Modal.Header className="border-b border-zinc-800 px-6 pt-6 pb-4">
+                <span className="inline-block text-yellow-400 text-xs font-semibold uppercase tracking-widest mb-2 border border-yellow-400/30 px-3 py-1 rounded-full">
+                  Car Listing
+                </span>
+                <Modal.Heading className="text-white text-2xl font-bold">
+                  Edit <span className="text-yellow-400 italic">Car</span>
+                </Modal.Heading>
               </Modal.Header>
+
               <Modal.Body className="p-6">
-                <Surface variant="default">
-                  <form  className="p-10 space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      {/* Destination Name */}
-                      <div className="md:col-span-2">
-                        <TextField defaultValue="" name="destinationName" isRequired>
-                          <Label>Destination Name</Label>
-                          <Input
-                            placeholder="Bali Paradise"
-                            className="rounded-2xl"
-                          />
-                          <FieldError />
-                        </TextField>
-                      </div>
-
-                      {/* Country */}
-                      <TextField  defaultValue=""  name="country" isRequired>
-                        <Label>Country</Label>
-                        <Input
-                          placeholder="Indonesia"
-                          className="rounded-2xl"
-                        />
-                        <FieldError />
-                      </TextField>
-
-                      {/* Category - Updated Select Component */}
-                      <div>
-                        <Select
-                          defaultValue="" 
-                          name="category"
-                          isRequired
-                          className="w-full"
-                          placeholder="Select category"
-                        >
-                          <Label>Category</Label>
-                          <Select.Trigger className="rounded-2xl">
-                            <Select.Value />
-                            <Select.Indicator />
-                          </Select.Trigger>
-                          <Select.Popover>
-                            <ListBox>
-                              <ListBox.Item id="Beach" textValue="Beach">
-                                Beach
-                                <ListBox.ItemIndicator />
-                              </ListBox.Item>
-                              <ListBox.Item id="Mountain" textValue="Mountain">
-                                Mountain
-                                <ListBox.ItemIndicator />
-                              </ListBox.Item>
-                              <ListBox.Item id="City" textValue="City">
-                                City
-                                <ListBox.ItemIndicator />
-                              </ListBox.Item>
-                              <ListBox.Item
-                                id="Adventure"
-                                textValue="Adventure"
-                              >
-                                Adventure
-                                <ListBox.ItemIndicator />
-                              </ListBox.Item>
-                              <ListBox.Item id="Cultural" textValue="Cultural">
-                                Cultural
-                                <ListBox.ItemIndicator />
-                              </ListBox.Item>
-                              <ListBox.Item id="Luxury" textValue="Luxury">
-                                Luxury
-                                <ListBox.ItemIndicator />
-                              </ListBox.Item>
-                            </ListBox>
-                          </Select.Popover>
-                        </Select>
-                      </div>
-
+                <Surface variant="default" className="bg-transparent">
+                  <form onSubmit={onSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       {/* Price */}
-                      <TextField defaultValue="" name="price" type="number" isRequired>
-                        <Label>Price (USD)</Label>
+                      <TextField
+                        defaultValue={car.pricePerDay}
+                        name="pricePerDay"
+                        type="number"
+                        isRequired
+                      >
+                        <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
+                          Daily Rent Price ($)
+                        </Label>
                         <Input
                           type="number"
-                          placeholder="1299"
-                          className="rounded-2xl"
+                          placeholder=""
+                          className="rounded-lg bg-zinc-800 border border-zinc-700 text-white"
                         />
                         <FieldError />
                       </TextField>
 
-                      {/* Duration */}
-                      <TextField defaultValue="" name="duration" isRequired>
-                        <Label>Duration</Label>
+                      {/* Category */}
+                      <Select
+                        defaultValue={car.category}
+                        name="category"
+                        isRequired
+                        className="w-full"
+                        placeholder="Select type"
+                      >
+                        <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
+                          Car Type
+                        </Label>
+                        <Select.Trigger className="rounded-lg text-white bg-zinc-800 border border-zinc-700 hover:border-yellow-400">
+                          <Select.Value />
+                          <Select.Indicator />
+                        </Select.Trigger>
+                        <Select.Popover className="bg-zinc-900 border border-zinc-700">
+                          <ListBox>
+                            {["SUV","Sedan","Hatchback","Luxury","Sports", "Electric","Pickup","Van",
+                            ].map((type) => (
+                              <ListBox.Item
+                                key={type}
+                                id={type}
+                                textValue={type}
+                                className="text-white hover:bg-zinc-800"
+                              >
+                                {type}
+                                <ListBox.ItemIndicator />
+                              </ListBox.Item>
+                            ))}
+                          </ListBox>
+                        </Select.Popover>
+                      </Select>
+
+                      {/* Location */}
+                      <TextField
+                        defaultValue={car.location}
+                        name="location"
+                        isRequired
+                      >
+                        <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
+                          Pickup Location
+                        </Label>
                         <Input
-                          placeholder="7 Days / 6 Nights"
-                          className="rounded-2xl"
+                          placeholder="e.g. Dhaka"
+                          className="rounded-lg bg-zinc-800 border border-zinc-700 text-white"
                         />
                         <FieldError />
                       </TextField>
 
-                      {/* Departure Date */}
-                      <div className="md:col-span-2">
-                        <TextField defaultValue="" name="departureDate" type="date" isRequired>
-                          <Label>Departure Date</Label>
-                          <Input type="date" className="rounded-2xl" />
-                          <FieldError />
-                        </TextField>
-                      </div>
+                      {/* Availability */}
+                      <Select
+                        defaultValue={String(car.available)}
+                        name="available"
+                        isRequired
+                        className="w-full"
+                        placeholder="Select availability"
+                      >
+                        <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
+                          Availability Status
+                        </Label>
+                        <Select.Trigger className="rounded-lg text-white bg-zinc-800 border border-zinc-700 hover:border-yellow-400">
+                          <Select.Value />
+                          <Select.Indicator />
+                        </Select.Trigger>
+                        <Select.Popover className="bg-zinc-900 border border-zinc-700">
+                          <ListBox>
+                            <ListBox.Item
+                              id="true"
+                              textValue="Available Now"
+                              className="text-green-400 hover:bg-zinc-800"
+                            >
+                              ✓ Available Now
+                              <ListBox.ItemIndicator />
+                            </ListBox.Item>
+                            <ListBox.Item
+                              id="false"
+                              textValue="Not Available"
+                              className="text-red-400 hover:bg-zinc-800"
+                            >
+                              ✗ Not Available
+                              <ListBox.ItemIndicator />
+                            </ListBox.Item>
+                          </ListBox>
+                        </Select.Popover>
+                      </Select>
 
-                      {/* Image URL - Removed preview */}
+                      {/* Image URL */}
                       <div className="md:col-span-2">
-                        <TextField defaultValue={car.image} name="imageUrl" isRequired>
-                          <Label>Image URL</Label>
+                        <TextField
+                          defaultValue={car.image}
+                          name="image"
+                          isRequired
+                        >
+                          <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
+                            Image URL
+                          </Label>
                           <Input
                             type="url"
-                            placeholder="https://example.com/bali-paradise.jpg"
-                            className="rounded-2xl"
+                            placeholder="Enter your image url"
+                            className="rounded-lg bg-zinc-800 border border-zinc-700 text-white"
                           />
                           <FieldError />
                         </TextField>
@@ -140,35 +181,47 @@ const EditModal = ({car}) => {
 
                       {/* Description */}
                       <div className="md:col-span-2">
-                        <TextField defaultValue="" name="description" isRequired>
-                          <Label>Description</Label>
+                        <TextField
+                          defaultValue={car.description}
+                          name="description"
+                          isRequired
+                        >
+                          <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
+                            Description
+                          </Label>
                           <TextArea
-                            placeholder="Describe the travel experience..."
-                            className="rounded-3xl"
+                            placeholder="Describe the car..."
+                            className="rounded-lg bg-zinc-800 border border-zinc-700 text-white"
                           />
                           <FieldError />
                         </TextField>
                       </div>
                     </div>
 
-                    {/* Buttons */}
-
-                     <Modal.Footer>
-                <Button slot="close" variant="secondary">
-                  Cancel
-                </Button>
-                <Button type="submit" slot="close">Save</Button>
-              </Modal.Footer>
+                    <Modal.Footer className="border-t border-zinc-800 pt-4 px-0">
+                      <Button
+                        slot="close"
+                        className="px-6 py-3 border border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-white text-xs uppercase tracking-widest rounded-lg transition-colors"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        type="submit"
+                        slot="close"
+                        className="px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-bold text-xs uppercase tracking-widest rounded-lg transition-colors"
+                      >
+                        Save Changes →
+                      </Button>
+                    </Modal.Footer>
                   </form>
                 </Surface>
               </Modal.Body>
-             
             </Modal.Dialog>
           </Modal.Container>
         </Modal.Backdrop>
       </Modal>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default EditModal;

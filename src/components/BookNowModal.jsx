@@ -1,37 +1,12 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { Envelope } from "@gravity-ui/icons";
-import {
-  Button,
-  Input,
-  Label,
-  ListBox,
-  Modal,
-  Surface,
-  TextField,
-  Select,
-} from "@heroui/react";
 import { useRouter } from "next/navigation";
-
 import { TiTick } from "react-icons/ti";
+import {Button,Input,Label,ListBox,Modal,Surface,TextField,Select,} from "@heroui/react";
 
 export function BookNowModal({ car }) {
-  const {
-    _id,
-    brand,
-    model,
-    speed,
-    rating,
-    category,
-    seats,
-    image,
-    transmission,
-    fuel,
-    description,
-    pricePerDay,
-    available,
-    location,
-  } = car;
+  const {_id,brand,model,speed,rating,category,seats,image,transmission,fuel,description,pricePerDay,available,location} = car;
 
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
@@ -63,10 +38,13 @@ export function BookNowModal({ car }) {
     };
     console.log(bookingData, "booking");
 
+    const {data:tokenData} = await authClient.token();
+    console.log(tokenData);
     const res = await fetch("http://localhost:5000/carBooking", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization : `Bearer ${tokenData?.token}`
       },
       body: JSON.stringify(bookingData),
     });

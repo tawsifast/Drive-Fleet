@@ -1,9 +1,7 @@
 import CarCard from "@/components/CarCard";
 
 const ExploreCarPage = async () => {
-  const res = await fetch(`http://localhost:5000/explore`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`http://localhost:5000/explore`);
   const cars = await res.json();
 
   return (
