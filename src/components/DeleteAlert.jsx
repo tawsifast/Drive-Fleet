@@ -4,7 +4,20 @@ import { AlertDialog, Button } from "@heroui/react";
 import { redirect } from "next/navigation";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const DeleteAlert = () => {
+const DeleteAlert = ({car}) => {
+    const {_id} = car;
+    const handleDelete = async () =>{
+        const res = await fetch(`http://localhost:5000/listing/${_id}`,{
+        method: "DELETE",
+        headers: {
+        "content-type": "application/json",
+        // body: JSON.stringify(destination),
+        }
+      })
+      const data = await res.json();
+      redirect("/explore")
+      console.log(data,"data");
+    }
   return (
     <div>
       <AlertDialog>
@@ -35,8 +48,8 @@ const DeleteAlert = () => {
                 <Button slot="close" variant="tertiary">
                   Cancel
                 </Button>
-                <Button slot="close" variant="danger">
-                  Delete Destination
+                <Button onClick={handleDelete} variant="danger">
+                  Delete Car
                 </Button>
               </AlertDialog.Footer>
             </AlertDialog.Dialog>

@@ -16,9 +16,23 @@ import { useRouter } from "next/navigation";
 import { TiTick } from "react-icons/ti";
 
 export function BookNowModal({ car }) {
+  const {
+    _id,
+    brand,
+    model,
+    speed,
+    rating,
+    category,
+    seats,
+    image,
+    transmission,
+    fuel,
+    description,
+    pricePerDay,
+    available,
+    location,
+  } = car;
 
-   const {_id, brand, model, speed, rating, category, seats, image, transmission, fuel, description, pricePerDay, available, location} = car;
-   
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
   // console.log(user,"user");
@@ -31,6 +45,8 @@ export function BookNowModal({ car }) {
     }
 
     const formData = new FormData(e.target);
+    const carData = Object.fromEntries(formData.entries());
+    const {message, driverNeeded} = carData;
     const bookingData = {
       userId: user.id,
       userImage: user.image,
@@ -41,20 +57,22 @@ export function BookNowModal({ car }) {
       image,
       pricePerDay,
       category,
-      location
+      location,
+      message,
+      driverNeeded,
     };
-    console.log(bookingData,"booking");
+    console.log(bookingData, "booking");
 
-     const res = await fetch("http://localhost:5000/carBooking", {
-        method: "POST",
-        headers: {
-         "content-type": "application/json"
-         },
-        body: JSON.stringify(bookingData),
-      })
+    const res = await fetch("http://localhost:5000/carBooking", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(bookingData),
+    });
     const data = await res.json();
-    console.log(data,"data");
-    alert("You booked successfully")
+    console.log(data, "data");
+    alert("You booked successfully");
   };
   return (
     <Modal>
@@ -64,17 +82,27 @@ export function BookNowModal({ car }) {
       >
         {car.available ? "Book Now →" : "Not Available"}
       </Button>
-      <Modal.Backdrop>
+      <Modal.Backdrop className="bg-zinc-950/80 backdrop-blur-sm">
         <Modal.Container placement="auto">
-          <Modal.Dialog className="sm:max-w-md">
-            <Modal.CloseTrigger />
-            <Modal.Header>
-              <Modal.Heading>Booking from</Modal.Heading>
-              <h2 className="font-bold text-xl">{`${car.brand} ${car.model}`}</h2>
+          <Modal.Dialog className="sm:max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl">
+            <Modal.CloseTrigger className="text-zinc-400 hover:text-white" />
+            <Modal.Header className="border-b border-zinc-800 px-6 pt-6 pb-4">
+              <Modal.Heading className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
+                Booking Form
+              </Modal.Heading>
+              <h2 className="font-bold text-2xl text-white mt-1">{`${car.brand} ${car.model}`}</h2>
             </Modal.Header>
             <Modal.Body className="p-6">
-              <Surface variant="default">
+              <Surface variant="default" className="bg-transparent">
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
+                  {/* Price info */}
+                  <div className="flex justify-between items-center bg-zinc-800 rounded-lg px-3 py-2">
+                    <span className="text-zinc-400 text-sm">Price per day</span>
+                    <span className="font-bold text-yellow-400 text-lg">
+                      ${car.pricePerDay}
+                    </span>
+                  </div>
+
                   <Select
                     name="driverNeeded"
                     isRequired
@@ -84,35 +112,51 @@ export function BookNowModal({ car }) {
                     <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
                       Driver Needed
                     </Label>
-                    <Select.Trigger className="rounded-lg" isRequired>
+                    <Select.Trigger
+                      className="rounded-lg bg-zinc-800 border border-zinc-700 hover:border-yellow-400"
+                      isRequired
+                    >
                       <Select.Value />
                       <Select.Indicator />
                     </Select.Trigger>
-                    <Select.Popover>
+                    <Select.Popover className="bg-zinc-900 border border-zinc-700">
                       <ListBox>
-                        <ListBox.Item id="yes" textValue="Yes">
+                        <ListBox.Item
+                          id="yes"
+                          textValue="Yes"
+                          className="text-white hover:bg-zinc-800"
+                        >
                           <TiTick /> Yes
                           <ListBox.ItemIndicator />
                         </ListBox.Item>
-                        <ListBox.Item id="no" textValue="No">
+                        <ListBox.Item
+                          id="no"
+                          textValue="No"
+                          className="text-white hover:bg-zinc-800"
+                        >
                           No
                           <ListBox.ItemIndicator />
                         </ListBox.Item>
                       </ListBox>
                     </Select.Popover>
                   </Select>
+
                   <TextField className="w-full" name="message">
-                    <Label>Special Note</Label>
-                    <Input placeholder="Enter your message" />
+                    <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
+                      Special Note
+                    </Label>
+                    <Input
+                      placeholder="Enter your message"
+                      className="bg-zinc-800 border border-zinc-700 text-white rounded-lg hover:border-yellow-400 focus:border-yellow-400"
+                    />
                   </TextField>
-                  <Modal.Footer>
+
+                  <Modal.Footer className="px-0 pt-2">
                     <Button
                       type="submit"
-                      className={
-                        "w-full flex-1 py-6 bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-bold text-sm uppercase tracking-widest rounded-lg"
-                      }
+                      className="w-full flex-1 py-6 bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-bold text-sm uppercase tracking-widest rounded-lg"
                     >
-                      Book Now
+                      Book Now →
                     </Button>
                   </Modal.Footer>
                 </form>

@@ -4,7 +4,7 @@ import {Button,Select,Input,Label,Modal,Surface,TextField,FieldError,ListBox,Tex
 import { BiUser } from "react-icons/bi";
 import { RiEdit2Fill } from "react-icons/ri";
 
-const EditModal = () => {
+const EditModal = ({car}) => {
     return (
         <div>
         <Modal>
@@ -23,11 +23,11 @@ const EditModal = () => {
               </Modal.Header>
               <Modal.Body className="p-6">
                 <Surface variant="default">
-                  <form onSubmit={onSubmit} className="p-10 space-y-8">
+                  <form  className="p-10 space-y-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {/* Destination Name */}
                       <div className="md:col-span-2">
-                        <TextField defaultValue={destinationName} name="destinationName" isRequired>
+                        <TextField defaultValue="" name="destinationName" isRequired>
                           <Label>Destination Name</Label>
                           <Input
                             placeholder="Bali Paradise"
@@ -38,7 +38,7 @@ const EditModal = () => {
                       </div>
 
                       {/* Country */}
-                      <TextField  defaultValue={country}  name="country" isRequired>
+                      <TextField  defaultValue=""  name="country" isRequired>
                         <Label>Country</Label>
                         <Input
                           placeholder="Indonesia"
@@ -50,7 +50,7 @@ const EditModal = () => {
                       {/* Category - Updated Select Component */}
                       <div>
                         <Select
-                          defaultValue={category} 
+                          defaultValue="" 
                           name="category"
                           isRequired
                           className="w-full"
@@ -96,7 +96,7 @@ const EditModal = () => {
                       </div>
 
                       {/* Price */}
-                      <TextField defaultValue={price} name="price" type="number" isRequired>
+                      <TextField defaultValue="" name="price" type="number" isRequired>
                         <Label>Price (USD)</Label>
                         <Input
                           type="number"
@@ -107,7 +107,7 @@ const EditModal = () => {
                       </TextField>
 
                       {/* Duration */}
-                      <TextField defaultValue={duration} name="duration" isRequired>
+                      <TextField defaultValue="" name="duration" isRequired>
                         <Label>Duration</Label>
                         <Input
                           placeholder="7 Days / 6 Nights"
@@ -118,7 +118,7 @@ const EditModal = () => {
 
                       {/* Departure Date */}
                       <div className="md:col-span-2">
-                        <TextField defaultValue={departureDate} name="departureDate" type="date" isRequired>
+                        <TextField defaultValue="" name="departureDate" type="date" isRequired>
                           <Label>Departure Date</Label>
                           <Input type="date" className="rounded-2xl" />
                           <FieldError />
@@ -127,7 +127,7 @@ const EditModal = () => {
 
                       {/* Image URL - Removed preview */}
                       <div className="md:col-span-2">
-                        <TextField defaultValue={imageUrl} name="imageUrl" isRequired>
+                        <TextField defaultValue={car.image} name="imageUrl" isRequired>
                           <Label>Image URL</Label>
                           <Input
                             type="url"
@@ -140,7 +140,7 @@ const EditModal = () => {
 
                       {/* Description */}
                       <div className="md:col-span-2">
-                        <TextField defaultValue={description} name="description" isRequired>
+                        <TextField defaultValue="" name="description" isRequired>
                           <Label>Description</Label>
                           <TextArea
                             placeholder="Describe the travel experience..."

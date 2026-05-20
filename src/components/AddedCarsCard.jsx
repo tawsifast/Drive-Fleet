@@ -2,6 +2,7 @@ import { Card } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
 import DeleteAlert from "./DeleteAlert";
+import EditModal from "./EditModal";
 
 const AddedCarsCard = ({ car }) => {
   return (
@@ -17,7 +18,8 @@ const AddedCarsCard = ({ car }) => {
         </div>
         <div>
         <h2 className="font-bold text-xl">{`${car.brand} ${car.model}`}</h2>
-        <DeleteAlert/>
+        <DeleteAlert car={car}/>
+        <EditModal car={car}/>
         </div>
       </Card>
     </div>
