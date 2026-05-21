@@ -17,14 +17,14 @@ const Search = () => {
   };
 
   return (
-    <div className="flex gap-4 mb-10">
+    <div className="flex gap-4 mb-10 max-w-150">
       <input
         value={search}
         type="text"
         placeholder="Search cars..."
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        className="flex-1 bg-zinc-900 border border-zinc-700 text-white placeholder-zinc-500 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-yellow-400 transition-colors"
+        className="flex-1 bg-zinc-900 border border-zinc-700 text-white placeholder-zinc-500 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-yellow-400 transition-colors "
       />
       <select
         value={category}
@@ -42,7 +42,7 @@ const Search = () => {
       </select>
       <Button
         onClick={handleSearch}
-        className="px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-bold text-xs uppercase tracking-widest rounded-lg"
+        className="px-6 py-5 bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-bold text-sm uppercase tracking-widest rounded-lg"
       >
         Search
       </Button>
