@@ -4,6 +4,7 @@ import { Avatar, Button } from "@heroui/react";
 import Link from "next/link";
 import { useState } from "react";
 import { IoMenuSharp } from "react-icons/io5";
+import NavLink from "./NavLink";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,10 +29,10 @@ const Navbar = () => {
 
       {/* Nav Links */}
       <div className="flex items-center gap-6">
-        <Link href="/" className="text-zinc-400 hover:text-yellow-400 text-sm uppercase tracking-widest transition-colors">Home</Link>
-        <Link href="/explore" className="text-zinc-400 hover:text-yellow-400 text-sm uppercase tracking-widest transition-colors">Explore Cars</Link>
-        <Link href="/add" className="text-zinc-400 hover:text-yellow-400 text-sm uppercase tracking-widest transition-colors">Add Car</Link>
-        <Link href="/booking" className="text-zinc-400 hover:text-yellow-400 text-sm uppercase tracking-widest transition-colors">My Bookings</Link>
+        <NavLink href="/" className={'text-zinc-400 hover:text-yellow-400 text-sm uppercase tracking-widest transition-colors '}>Home</NavLink>
+        <NavLink href="/explore" className={'text-zinc-400 hover:text-yellow-400 text-sm uppercase tracking-widest transition-colors '}>Explore Cars</NavLink>
+        <NavLink href="/add" className={'text-zinc-400 hover:text-yellow-400 text-sm uppercase tracking-widest transition-colors '}>Add Car</NavLink>
+        <NavLink href="/booking" className={'text-zinc-400 hover:text-yellow-400 text-sm uppercase tracking-widest transition-colors '}>My Bookings</NavLink>
       </div>
 
       <div className="relative">
@@ -63,27 +64,27 @@ const Navbar = () => {
                   <p className="text-white text-sm font-semibold">{user?.name}</p>
                   <p className="text-zinc-500 text-xs">{user?.email}</p>
                 </div>
-                <Link
+                <NavLink
                   href="/add"
-                  className="block px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-yellow-400 transition-colors"
+                  className={"block px-2 py-2 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-yellow-400 transition-colors"}
                   onClick={() => setDropdownOpen(false)}
                 >
                   Add Car
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   href="/booking"
-                  className="block px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-yellow-400 transition-colors"
+                  className={"block px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-yellow-400 transition-colors"}
                   onClick={() => setDropdownOpen(false)}
                 >
                   My Bookings
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   href="/my-added-cars"
-                  className="block px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-yellow-400 transition-colors"
+                  className={"block px-4 py-2.5 text-sm text-zinc-300 hover:bg-zinc-800 hover:text-yellow-400 transition-colors"}
                   onClick={() => setDropdownOpen(false)}
                 >
                   My Added Cars
-                </Link>
+                </NavLink>
                 <hr className="my-1 border-zinc-800" />
                 <button
                   onClick={handleSignOut}

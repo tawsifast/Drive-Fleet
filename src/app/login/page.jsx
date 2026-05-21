@@ -13,6 +13,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,8 +29,11 @@ const LoginPage = () => {
               password: user.password,
           })
           console.log(data, error);
-            if(data){
+        if(data){
             redirect("/")
+        }
+        if(error){
+          toast.error("Sign in Unsuccessful")
         }
       }
 
@@ -93,18 +97,19 @@ const LoginPage = () => {
               {/* Password */}
               <div className="relative">
                 <TextField name="password" type={showPassword ? "text" : "password"} isRequired 
-                validate={(value) => {
-              if (value.length < 8) {
-                return "Password must be at least 8 characters";
-              }
-              if (!/[A-Z]/.test(value)) {
-                return "Password must contain at least one uppercase letter";
-              }
-              if (!/[0-9]/.test(value)) {
-                return "Password must contain at least one number";
-              }
-              return null;
-            }}>
+            //     validate={(value) => {
+            //   if (value.length < 8) {
+            //     return "Password must be at least 8 characters";
+            //   }
+            //   if (!/[A-Z]/.test(value)) {
+            //     return "Password must contain at least one uppercase letter";
+            //   }
+            //   if (!/[0-9]/.test(value)) {
+            //     return "Password must contain at least one number";
+            //   }
+            //   return null;
+            // }}
+            >
                   <Label className="text-zinc-400 text-xs font-semibold uppercase tracking-widest">
                     Password
                   </Label>

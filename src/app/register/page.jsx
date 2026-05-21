@@ -5,6 +5,7 @@ import {Button,Card,Description,FieldError,Form,Input,Label,Separator,TextField,
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
@@ -26,6 +27,9 @@ const RegisterPage = () => {
         console.log(data, error);
         if(data){
             redirect("/login")
+        }
+        if(error){
+        toast.error("Signup Unsuccessful")
         }
     }
     return (

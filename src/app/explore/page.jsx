@@ -1,6 +1,10 @@
 import CarCard from "@/components/CarCard";
+import Search from "@/components/Search";
+import { Suspense } from "react";
+
 
 const ExploreCarPage = async () => {
+
   const res = await fetch(`http://localhost:5000/explore`);
   const cars = await res.json();
 
@@ -19,6 +23,11 @@ const ExploreCarPage = async () => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-150 rounded-full bg-yellow-400 opacity-5 blur-3xl pointer-events-none" />
 
       <div className="relative z-10 w-11/12 mx-auto py-8">
+
+      <Suspense fallback={<div className="text-zinc-400">Loading...</div>}>
+          <Search />
+      </Suspense>
+
         {/* Header */}
         <div className="text-center mb-12">
           <span className="inline-block text-yellow-400 text-xs font-semibold uppercase tracking-widest mb-4 border border-yellow-400/30 px-3 py-1 rounded-full">
