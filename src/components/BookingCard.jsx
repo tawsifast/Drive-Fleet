@@ -2,28 +2,11 @@ import { Card } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
 import { FaLocationDot } from "react-icons/fa6";
+import { CancelBooking } from "./CancelBooking";
 
 const BookingCard = ({ booking }) => {
 
   return (
-    // <div >
-    //   <Card className="flex flex-row gap-20 border">
-    //     <div className="">
-    //       <Image src={booking.image}
-    //        alt="h"
-    //         width={150}
-    //         height={150}
-    //         className="rounded-md"
-    //         ></Image>
-    //     </div>
-    //     <div>
-    //     <h2 className="font-bold text-xl">{`${booking.brand} ${booking.model}`}</h2>
-    //     <p>${booking.pricePerDay}</p>
-    //     <p>{booking.location}</p>
-    //     </div>
-    //   </Card>
-    // </div>
-
       <div>
       <Card className="bg-zinc-900 border border-zinc-800 overflow-hidden">
         <div className="flex flex-col md:flex-row gap-0">
@@ -70,7 +53,7 @@ const BookingCard = ({ booking }) => {
             <div className="border-t border-zinc-800" />
 
             {/* Details row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               <div>
                 <p className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Booking Date</p>
                 {/* <p className="text-white text-sm font-semibold">{bookingDate}</p> */}
@@ -89,6 +72,10 @@ const BookingCard = ({ booking }) => {
                 <p className="text-zinc-500 text-xs uppercase tracking-widest mb-1">Booking Date</p>
                 <p className="text-white text-sm font-semibold">{booking.bookingDate}</p>
               </div> */}
+
+              <div>
+                <CancelBooking bookingId={booking._id}/>
+              </div>
             </div>
 
             {/* Message */}

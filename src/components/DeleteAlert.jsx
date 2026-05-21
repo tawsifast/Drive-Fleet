@@ -2,6 +2,7 @@
 
 import { AlertDialog, Button } from "@heroui/react";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const DeleteAlert = ({car}) => {
@@ -26,7 +27,7 @@ const DeleteAlert = ({car}) => {
           className={"rounded-none text-red-400 border border-red-300"}
         >
           <RiDeleteBin6Line />
-          Cancel
+          Delete
         </Button>
         <AlertDialog.Backdrop>
           <AlertDialog.Container>
