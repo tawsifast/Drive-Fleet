@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 
 const Footer = () => {
     return (
@@ -65,7 +66,7 @@ const Footer = () => {
       <h3 className="text-xl font-semibold mb-5">Contact Info</h3>
 
       <div className="space-y-3 text-gray-400">
-        <p>📧 tawsif@example.com</p>
+        <p>📧 0070tawsif@gmail.com</p>
         <p>📍 Chattogram, Bangladesh</p>
       </div>
 
@@ -77,15 +78,15 @@ const Footer = () => {
           target="_blank"
           className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center hover:border-cyan-400 hover:text-cyan-400 transition"
         >
-          GitHub
+         <FaGithub />
         </a>
 
         <a
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/in/tawsif-islam"
           target="_blank"
           className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center hover:border-cyan-400 hover:text-cyan-400 transition"
         >
-          In
+          <FaLinkedin />
         </a>
 
         <a
