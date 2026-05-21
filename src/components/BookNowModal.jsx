@@ -34,7 +34,7 @@ export function BookNowModal({ car }) {
       category,
       location,
       message,
-      driverNeeded,
+      driverNeeded
     };
     console.log(bookingData, "booking");
 

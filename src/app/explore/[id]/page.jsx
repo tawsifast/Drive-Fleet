@@ -1,4 +1,4 @@
-import { Card, CardBody, Chip, Button } from "@heroui/react";
+import { Card, Chip, Button } from "@heroui/react";
 import Image from "next/image";
 import { FaStar, FaGasPump, FaLocationDot } from "react-icons/fa6";
 import { IoIosSpeedometer } from "react-icons/io";
@@ -8,6 +8,8 @@ import Link from "next/link";
 import { BookNowModal } from "@/components/BookNowModal";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { SiBookingdotcom } from "react-icons/si";
+import { BiBook } from "react-icons/bi";
 
 const CarDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -20,7 +22,7 @@ const CarDetailsPage = async ({ params }) => {
       authorization: `Bearer ${token}`
     }})
   const car = await res.json();
-  const {brand,model,speed,rating,category,seats,image,transmission,fuel,description,pricePerDay,available,location,features} = car;
+  const {brand,model,speed,rating,category,seats,image,transmission,fuel,description,pricePerDay,available,location,features, booking_count} = car;
 
   return (
     <section className="min-h-screen bg-zinc-950 py-8 px-4 relative overflow-hidden">
@@ -178,6 +180,12 @@ const CarDetailsPage = async ({ params }) => {
                 </div>
               </div>
             </Card>
+
+            <div className="px-3 pt-1">
+          <p className="text-zinc-500 text-sm bg-zinc-900 border border-zinc-800 p-2 w-30 rounded-md">
+             <span className="text-white font-semibold">{booking_count || 0}</span> times booked
+          </p>
+        </div>
 
             {/* Description */}
             <div>
