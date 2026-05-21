@@ -3,10 +3,19 @@ import Search from "@/components/Search";
 import { Suspense } from "react";
 
 
-const ExploreCarPage = async () => {
+const ExploreCarPage = async ({searchParams}) => {
 
-  const res = await fetch(`http://localhost:5000/explore`);
+  const sParams = await searchParams;
+  const search = sParams?.search || "";
+  const category = sParams?.category || "";
+
+  const res = await fetch(
+    `http://localhost:5000/explore?search=${search}&category=${category}`,
+    { cache: "no-store" }
+  );
   const cars = await res.json();
+  // const res = await fetch(`http://localhost:5000/explore`);
+  // const cars = await res.json();
 
   return (
     <section className="min-h-screen bg-zinc-950 relative overflow-hidden">
@@ -24,9 +33,7 @@ const ExploreCarPage = async () => {
 
       <div className="relative z-10 w-11/12 mx-auto py-8">
 
-      <Suspense fallback={<div className="text-zinc-400">Loading...</div>}>
-          <Search />
-      </Suspense>
+      
 
         {/* Header */}
         <div className="text-center mb-12">
@@ -63,6 +70,8 @@ const ExploreCarPage = async () => {
             </div>
           </div>
         </div>
+
+        
 
         {/* Cars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 items-stretch">

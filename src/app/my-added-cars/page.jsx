@@ -32,7 +32,7 @@ const MyAddedCars = async () => {
       />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-75 rounded-full bg-yellow-400 opacity-5 blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 w-11/12 mx-auto py-16">
+      <div className="relative z-10 w-11/12 mx-auto py-5">
 
         {/* Header */}
         <div className="flex items-end justify-between mb-10">
