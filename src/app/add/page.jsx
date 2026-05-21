@@ -1,6 +1,7 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import {Button,Card,CardBody,FieldError,Input,Label,ListBox,Select,TextArea,TextField,} from "@heroui/react";
+import toast from "react-hot-toast";
 
 const carTypes = ["SUV","Sedan","Hatchback","Luxury","Sports","Electric","Pickup","Van",
 ];
@@ -45,6 +46,9 @@ const AddCarPage = () => {
     const data1 = await res1.json();
     const data2 = await res2.json();
     console.log(data1,data2, "data");
+    if(data1){
+      toast.success("New car added")
+    }
   };
 
   return (
