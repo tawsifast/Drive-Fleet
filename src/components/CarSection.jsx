@@ -16,7 +16,7 @@ const CarSection = async () => {
           backgroundSize: "60px 60px",
         }}
       />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-yellow-400 opacity-5 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-75 rounded-full bg-yellow-400 opacity-5 blur-3xl pointer-events-none" />
 
       <div className="relative z-10 w-11/12 mx-auto">
 
@@ -38,7 +38,7 @@ const CarSection = async () => {
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {cars.map((car) => (
-            <div key={car._id} className="flex-shrink-0 w-[300px]">
+            <div key={car._id} className="shrink-0 w-75">
               <CarCard car={car} />
             </div>
           ))}

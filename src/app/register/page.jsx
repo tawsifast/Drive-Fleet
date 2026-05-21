@@ -32,6 +32,12 @@ const RegisterPage = () => {
         toast.error("Signup Unsuccessful")
         }
     }
+
+     const handleGogleSignIn = async () =>{
+            const data = await authClient.signIn.social({
+            provider: "google",
+      });
+          }
     return (
           <section className="min-h-screen bg-zinc-950 flex items-center justify-center px-4 relative overflow-hidden">
 
@@ -152,6 +158,7 @@ const RegisterPage = () => {
             {/* Google Button */}
             <Button
               variant="bordered"
+              onClick={handleGogleSignIn}
               className="w-full py-6 border border-zinc-700 text-white hover:border-zinc-500 rounded-lg flex items-center justify-center gap-3"
             >
               <FcGoogle size={20} />

@@ -14,7 +14,7 @@ const AddedCarsCard = ({ car }) => {
         <div className="flex flex-col md:flex-row gap-0">
 
           {/* Image */}
-          <div className="relative w-full md:w-56 h-48 md:h-auto flex-shrink-0">
+          <div className="relative w-full md:w-56 h-48 md:h-auto shrink-0">
             <Image
               src={car.image}
               alt={`${car.brand} ${car.model}`}
