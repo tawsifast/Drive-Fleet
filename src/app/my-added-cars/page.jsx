@@ -13,7 +13,7 @@ const MyAddedCars = async () => {
       })
   const user = session?.user;
   // console.log(user, "session");
-  const res = await fetch(`http://localhost:5000/listing/${user?.id}`,{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/listing/${user?.id}`,{
      headers:{
       authorization: `Bearer ${token}`
     }

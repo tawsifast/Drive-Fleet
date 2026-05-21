@@ -3,7 +3,7 @@ import CarCard from "./CarCard";
 import Link from "next/link";
 
 const CarSection = async () => {
-  const res = await fetch(`http://localhost:5000/explore`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/explore`);
   const cars = await res.json();
   console.log(cars);
   return (

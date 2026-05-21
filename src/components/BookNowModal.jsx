@@ -4,6 +4,7 @@ import { Envelope } from "@gravity-ui/icons";
 import { useRouter } from "next/navigation";
 import { TiTick } from "react-icons/ti";
 import {Button,Input,Label,ListBox,Modal,Surface,TextField,Select,} from "@heroui/react";
+import toast from "react-hot-toast";
 
 export function BookNowModal({ car }) {
   const {_id,brand,model,speed,rating,category,seats,image,transmission,fuel,description,pricePerDay,available,location} = car;
@@ -40,7 +41,7 @@ export function BookNowModal({ car }) {
 
     const {data:tokenData} = await authClient.token();
     console.log(tokenData);
-    const res = await fetch("http://localhost:5000/carBooking", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/carBooking`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -50,7 +51,7 @@ export function BookNowModal({ car }) {
     });
     const data = await res.json();
     console.log(data, "data");
-    alert("You booked successfully");
+    toast.success("You booked successfully");
   };
   return (
     <Modal>

@@ -21,7 +21,7 @@ const EditModal = ({ car }) => {
     const formData = new FormData(e.target);
     const cars = Object.fromEntries(formData.entries());
     console.log(cars, "carsData");
-    const res = await fetch(`http://localhost:5000/listing/${_id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/listing/${_id}`,{
       method: 'PATCH',
       headers:{
            "content-type": "application/json" 

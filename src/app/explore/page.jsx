@@ -10,7 +10,7 @@ const ExploreCarPage = async ({searchParams}) => {
   const category = sParams?.category || "";
 
   const res = await fetch(
-    `http://localhost:5000/explore?search=${search}&category=${category}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/explore?search=${search}&category=${category}`,
     { cache: "no-store" }
   );
   const cars = await res.json();
@@ -71,7 +71,9 @@ const ExploreCarPage = async ({searchParams}) => {
           </div>
         </div>
 
-        
+        <Suspense fallback={<div className="text-zinc-400">Loading...</div>}>
+          <Search />
+      </Suspense>
 
         {/* Cars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 items-stretch">

@@ -31,12 +31,12 @@ const AddCarPage = () => {
     };
 
     const [res1, res2] = await Promise.all([
-      fetch("http://localhost:5000/explore", {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/explore`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(cars),
       }),
-      fetch("http://localhost:5000/listing", {
+      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/listing`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(personalCarAddingData),

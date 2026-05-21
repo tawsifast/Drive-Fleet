@@ -13,7 +13,7 @@ const BookingCarPage = async () => {
     })
 
   const user = session?.user;
-  const res = await fetch(`http://localhost:5000/carBooking/${user?.id}`,{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/carBooking/${user?.id}`,{
      headers:{
       authorization: `Bearer ${token}`
     }

@@ -7,7 +7,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 const DeleteAlert = ({car}) => {
     const {_id} = car;
     const handleDelete = async () =>{
-        const res = await fetch(`http://localhost:5000/listing/${_id}`,{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/listing/${_id}`,{
         method: "DELETE",
         headers: {
         "content-type": "application/json",
