@@ -50,8 +50,16 @@ export function BookNowModal({ car }) {
       body: JSON.stringify(bookingData),
     });
     const data = await res.json();
+      if(data.message === "You already booked this car!") {
+    toast.error("You already booked this car!");
+    return;
+}
+
+if(data.insertedId) {
+    toast.success("Car booked successfully!");
+}
     console.log(data, "data");
-    toast.success("You booked successfully");
+    // toast.success("You booked successfully");
   };
   return (
     <Modal>

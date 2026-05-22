@@ -2,6 +2,7 @@ import BookingCard from "@/components/BookingCard";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const BookingCarPage = async () => {
   const session = await auth.api.getSession({
@@ -18,6 +19,7 @@ const BookingCarPage = async () => {
       authorization: `Bearer ${token}`
     }
   });
+
   const bookings = await res.json();
   console.log(bookings, "data");
 
