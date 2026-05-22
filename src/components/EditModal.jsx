@@ -207,7 +207,6 @@ const EditModal = ({ car }) => {
                       </Button>
                       <Button
                         type="submit"
-                        slot="close"
                         className="px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-bold text-xs uppercase tracking-widest rounded-lg transition-colors"
                       >
                         Save Changes →
