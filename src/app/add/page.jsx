@@ -12,57 +12,106 @@ const AddCarPage = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.target);
+  //   const cars = Object.fromEntries(formData.entries());
+  //   console.log(cars, "cars");
+  //   const {_id, brand, model, speed, rating, category, seats, image, transmission, fuel, description, location, pricePerDay, available} = cars;
+  //   const personalCarAddingData = {
+  //     userId: user.id,
+  //     userImage: user.image,
+  //     UserName: user.name,
+  //     carId:_id,
+  //     model,
+  //     brand,
+  //     image,
+  //     pricePerDay,
+  //     category,
+  //     location,
+  //     available,
+  //   };
+
+  //   const [res1, res2] = await Promise.all([
+  //     fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/explore`, {
+  //       method: "POST",
+  //       headers: { "content-type": "application/json" },
+  //       body: JSON.stringify(cars),
+  //     }),
+  //     fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/listing`, {
+  //       method: "POST",
+  //       headers: { "content-type": "application/json" },
+  //       body: JSON.stringify(personalCarAddingData),
+  //     }),
+  //   ]);
+  //   const data1 = await res1.json();
+  //   const data2 = await res2.json();
+  //   console.log(data1,data2, "data");
+
+  //   if(data1.message === "This car already exists!") {
+  //   toast.error("This car is already listed!");
+  //   return;
+  //   }
+
+  //   if(data2.message === "Already in your listing!") {
+  //   toast.error("This car is already in your Added page!");
+  //   return;
+  //   }
+
+  //   if(data1.insertedId) {
+  //   toast.success("New car added!");
+  //   }
+  // };
+
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const cars = Object.fromEntries(formData.entries());
-    console.log(cars, "cars");
-    const {_id, brand, model, speed, rating, category, seats, image, transmission, fuel, description, location, pricePerDay, available} = cars;
-    const personalCarAddingData = {
-      userId: user.id,
-      userImage: user.image,
-      UserName: user.name,
-      carId:_id,
-      model,
-      brand,
-      image,
-      pricePerDay,
-      category,
-      location,
-      available,
-    };
+    const { brand, model, category, image, pricePerDay, location, available } = cars;
 
-    const [res1, res2] = await Promise.all([
-      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/explore`, {
+    const res1 = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/explore`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(cars),
-      }),
-      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/listing`, {
+    });
+    const data1 = await res1.json();
+
+    if(data1.message === "This car already exists!") {
+        toast.error("This car is already listed!");
+        return;
+    }
+
+    const personalCarAddingData = {
+        userId: user.id,
+        userImage: user.image,
+        UserName: user.name,
+        exploreId: data1.insertedId, 
+        model,
+        brand,
+        image,
+        pricePerDay,
+        category,
+        location,
+        available,
+    };
+
+    const res2 = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/listing`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(personalCarAddingData),
-      }),
-    ]);
-    const data1 = await res1.json();
+    });
     const data2 = await res2.json();
-    console.log(data1,data2, "data");
-
-    if(data1.message === "This car already exists!") {
-    toast.error("This car is already listed!");
-    return;
-    }
 
     if(data2.message === "Already in your listing!") {
-    toast.error("This car is already in your Added page!");
-    return;
+        toast.error("This car is already in your Added page!");
+        return;
     }
 
     if(data1.insertedId) {
-    toast.success("New car added!");
+        toast.success("New car added!");
     }
-  };
-
+};
   return (
     <section className="min-h-screen bg-zinc-950 py-10 px-4 relative overflow-hidden">
       {/* Grid bg */}
