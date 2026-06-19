@@ -15,6 +15,10 @@ export const auth = betterAuth({
     // Optional: if you don't provide a client, database transactions won't be enabled.
     client
   }),
+   trustedOrigins: [
+    "http://localhost:3000",
+    "https://drive-fleet-zeta.vercel.app",
+  ],
     emailAndPassword: { 
     enabled: true, 
   }, 
@@ -28,7 +32,7 @@ export const auth = betterAuth({
       cookieCache:{
         enabled:true,
         strategy: "jwt",
-        maxAge: 7 * 24 * 7 * 7
+        maxAge: 7 * 24 * 60 * 60
       }
     },
     plugins:[
