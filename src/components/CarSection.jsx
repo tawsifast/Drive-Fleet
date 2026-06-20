@@ -5,7 +5,7 @@ import Link from "next/link";
 const CarSection = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/explore`);
   const cars = await res.json();
-  console.log(cars);
+  // console.log(cars);
   return (
     <section className="bg-zinc-950 py-16 relative overflow-hidden">
       <div

@@ -78,7 +78,7 @@ const LoginPage = () => {
             <form onSubmit={onSubmit} className="space-y-5">
 
               {/* Email */}
-              <TextField name="email" type="email" isRequired
+              <TextField defaultValue="eren@gmail.com" name="email" type="email" isRequired
                validate={(value) => {
               if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
                 return "Please enter a valid email address";
@@ -96,7 +96,7 @@ const LoginPage = () => {
 
               {/* Password */}
               <div className="relative">
-                <TextField name="password" type={showPassword ? "text" : "password"} isRequired 
+                <TextField defaultValue="Eren12345" name="password" type={showPassword ? "text" : "password"} isRequired 
             //     validate={(value) => {
             //   if (value.length < 8) {
             //     return "Password must be at least 8 characters";
